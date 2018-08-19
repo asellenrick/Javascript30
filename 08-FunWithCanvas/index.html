@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+<canvas id="draw" width="800" height="800"></canvas>
+<script>
+  const canvas = document.getElementById('draw');
+  const ctx = canvas.getContext('2d');
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+  //ctx.globalCompositeOperation = 'screen';
+
+  let isDrawing = false;
+  let lastX = 0;
+  let lastY = 0;
+  let lineWidth = 100;
+  let lineWidthChange = -1;
+  let hue = 0;
+
+  canvas.addEventListener('mousemove',draw);
+  canvas.addEventListener('mousedown', (event) => {
+    [lastX, lastY] = [event.offsetX, event.offsetY];
+    lineWidth = 100;
+    isDrawing = true;
+  });
+  canvas.addEventListener('mouseup',() => isDrawing = false);
+  canvas.addEventListener('mouseout',() => isDrawing = false);
+
+  function draw(event){
+    if (!isDrawing) return;
+    ctx.strokeStyle = `hsl(${hue%360},100%,50%)`;
+    ctx.lineWidth = lineWidth;
+    ctx.beginPath();
+    ctx.moveTo(lastX,lastY);
+    ctx.lineTo(event.offsetX,event.offsetY);
+    ctx.stroke();
+    [lastX, lastY] = [event.offsetX, event.offsetY]; 
+    hue++;
+    if (lineWidth == 101 || lineWidth == 0)
+      lineWidthChange *= -1;
+    lineWidth += lineWidthChange;
+  }
+
+</script>
+
+<style>
+  html, body {
+    margin:0;
+  }
+</style>
+
+</body>
+</html>
