@@ -1,0 +1,119 @@
+html {
+  box-sizing: border-box;
+  font-size: 10px;
+}
+
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  background: #ffc600;
+  transition: background .5s;
+  padding: 0;
+  margin:0;
+  font-family: 'Amatic SC', cursive;
+}
+
+body.playing{
+  background:#58c75d;
+}
+
+button{
+  margin: 4rem auto;
+  padding: 1rem 4rem;
+  display: block;
+  font-size: 4rem;
+  background: #6a4708;
+  border: none;
+  border-radius: 1rem;
+  color: #fff;
+  font-family: 'Amatic SC';
+  transition: background .5s;
+}
+
+button:disabled{
+  background:#1c711f;
+}
+
+h1 {
+  text-align: center;
+  font-size: 10rem;
+  line-height:1;
+  margin-bottom: 0;
+}
+
+.score {
+  background:rgba(255,255,255,0.2);
+  padding:0 3rem;
+  line-height:1;
+  border-radius:1rem;
+}
+
+.game {
+  width:600px;
+  height:600px;
+  display:flex;
+  flex-wrap:wrap;
+  margin:0 auto;
+  transition: transform .1s cubic-bezier(0.92,-0.85, 0.05, 1.99);
+}
+
+.game.swing{
+  transform: scale(.95) rotate(1deg);
+}
+
+.hole {
+  flex: 1 0 33.33%;
+  overflow: hidden;
+  position: relative;
+  pointer-events: none;
+}
+
+.hole:after {
+  display: block;
+  background: url(dirt.svg) bottom center no-repeat;
+  background-size:contain;
+  content:'';
+  width: 100%;
+  height:70px;
+  position: absolute;
+  z-index: 2;
+  bottom:-30px;
+}
+
+.bat{
+  display: block;
+  background: url(bat.svg) center center no-repeat;
+  background-size:contain;
+  width: 150px;
+  height:150px;
+  position: absolute;
+  z-index: 3;
+  top:0;
+  left: 0;
+  transform: rotate(-45deg);
+  transition: transform .05s ease;
+  pointer-events: none;
+}
+
+.bat.swing{
+  transform: scale(0.9) rotate(-40deg);
+}
+
+.mole {
+  background:url('mole.svg') bottom center no-repeat;
+  background-size:60%;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  height: 100%;
+  transition:top 0.4s;
+}
+
+.hole.up .mole {
+  top:0;
+  pointer-events: all;
+}
+
